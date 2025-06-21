@@ -1,6 +1,8 @@
+
 import java.util.Scanner;
 
 public class Perpustakaan {
+
     private final BookManager bookManager;
     private final Scanner scanner;
 
@@ -99,7 +101,7 @@ public class Perpustakaan {
         if (user instanceof Admin) {
             System.out.print("Enter title to remove: ");
             String title = scanner.nextLine();
-//            bookManager.removeBook(title);
+            bookManager.removeBook(title);
         } else {
             System.out.print("Enter title to return: ");
             String returnTitle = scanner.nextLine();

@@ -1,4 +1,6 @@
+
 public class BookManager {
+
     private final Book[] books;
     private int bookCount;
 
@@ -26,4 +28,24 @@ public class BookManager {
     }
 
     // Implementasi method removeBook, borrowBook, returnBook disini
+    public void removeBook(String title) {
+        boolean found = false;
+        for (int i = 0; i < bookCount; i++) {
+            if (books[i] != null && books[i].getTitle().equalsIgnoreCase(title)) {
+                found = true;
+                // Geser semua buku setelah yang dihapus ke kiri
+                for (int j = i; j < bookCount - 1; j++) {
+                    books[j] = books[j + 1];
+                }
+                books[--bookCount] = null; // Kurangi jumlah buku dan hapus duplikat terakhir
+                System.out.println("Buku \"" + title + "\" berhasil dihapus.");
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Buku dengan judul \"" + title + "\" tidak ditemukan.");
+        }
+    }
+
 }
