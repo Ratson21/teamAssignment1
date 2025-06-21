@@ -1,7 +1,13 @@
-public class Buku {
+public class Book {
     private String title;
     private String author;
     private Boolean available;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+        this.available = true;
+    }
 
     public String getTitle() {
         return title;
