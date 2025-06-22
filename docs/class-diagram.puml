@@ -1,0 +1,26 @@
+@startuml
+
+abstract class User {
+    # name: String
+    + User(name: String)
+    + interact(): void
+}
+
+class Admin {
+    + Admin(name: String)
+    + interact(): void
+    + addBook(book: Book): void
+    + removeBook(title: String): void
+}
+
+class Member {
+    + Member(name: String)
+    + interact(): void
+    + borrowBook(title: String): void
+    + returnBook(title: String): void
+}
+
+User <|-- Admin : extends
+User <|-- Member : extends
+
+@enduml
