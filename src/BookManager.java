@@ -19,9 +19,9 @@ public class BookManager {
     }
 
     public void displayAvailableBooks() {
-        System.out.println("\nAvailable Books:");
+        System.out.println("\nBook Lists:");
         for (Book book : books) {
-            if (book != null && book.isAvailable()) {
+            if (book != null) {
                 book.printDetails();
             }
         }
@@ -39,6 +39,21 @@ public class BookManager {
                 }
                 books[--bookCount] = null; // Kurangi jumlah buku dan hapus duplikat terakhir
                 System.out.println("Buku \"" + title + "\" berhasil dihapus.");
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Buku dengan judul \"" + title + "\" tidak ditemukan.");
+        }
+    }
+
+    public void borrowBook(String title) {
+        boolean found = false;
+        for (int i = 0; i < bookCount; i++) {
+            if (books[i] != null && books[i].getTitle().equalsIgnoreCase(title)) {
+                found = true;
+                books[i].borrow();
                 break;
             }
         }
