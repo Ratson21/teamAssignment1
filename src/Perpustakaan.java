@@ -93,7 +93,7 @@ public class Perpustakaan {
         } else {
             System.out.print("Enter title to borrow: ");
             String borrowTitle = scanner.nextLine();
-//            bookManager.borrowBook(borrowTitle);
+            bookManager.borrowBook(borrowTitle);
         }
     }
 
