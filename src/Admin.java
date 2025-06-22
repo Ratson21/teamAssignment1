@@ -1,12 +1,11 @@
-public class Admin extends User{
+public class Admin extends User {
 
     public Admin(String userName) {
         super(userName);
     }
 
+    @Override
     public void interact() {
-        System.out.println(name + " sedang menggunakan sistem.");
+        System.out.println(name + " (Admin) sedang menggunakan sistem.");
     }
-
-
 }

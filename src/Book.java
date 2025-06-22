@@ -27,12 +27,12 @@ public class Book {
     }
 
     public void returnBook() {
+        borrowed = false;
         System.out.println("Book \"" + title + "\" has been returned.");
     }
 
     public void printDetails() {
         String status = borrowed ? "Booked" : "Available";
-    System.out.println("Title: " + title + ", Author: " + author + ", Status: " + status);
+        System.out.println("Title: " + title + ", Author: " + author + ", Status: " + status);
     }
-
 }

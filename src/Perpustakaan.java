@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class Perpustakaan {
@@ -6,19 +5,28 @@ public class Perpustakaan {
     private final BookManager bookManager;
     private final Scanner scanner;
 
-    public Perpustakaan() {
-        this.bookManager = new BookManager();
+    public Perpustakaan(BookManager bookManager) {
+        this.bookManager = bookManager;
         this.scanner = new Scanner(System.in);
     }
 
     public void start() {
-        User user = login();
-        user.interact();
+        boolean exitApp = false;
+        while (!exitApp) {
+            User user = login();
+            user.interact();
 
-        boolean exit = false;
-        while (!exit) {
-            displayMenu(user);
-            exit = handleMenuChoice(user);
+            boolean logout = false;
+            while (!logout) {
+                displayMenu(user);
+                logout = handleMenuChoice(user);
+            }
+
+            System.out.print("Logout sukses. Ingin keluar aplikasi? (Y/N): ");
+            String response = scanner.nextLine().trim().toUpperCase();
+            if (response.equals("Y")) {
+                exitApp = true;
+            }
         }
 
         System.out.println("Terima kasih telah menggunakan sistem perpustakaan!");
@@ -27,20 +35,22 @@ public class Perpustakaan {
     private User login() {
         User user = null;
         while (user == null) {
-            System.out.println("--- Welcome to the Library System ---");
+            System.out.println("\n--- Login ---");
             System.out.print("Enter your name: ");
             String name = scanner.nextLine().trim();
 
             if (name.isEmpty()) {
-                System.out.println("Nama tidak boleh kosong. Silakan coba lagi.");
+                System.out.println("Nama tidak boleh kosong.");
             } else {
                 System.out.print("Login as Admin or Member? (A/M): ");
                 String role = scanner.nextLine().trim().toUpperCase();
 
-                if (role.isEmpty() || (!role.equals("A") && !role.equals("M"))) {
-                    System.out.println("Role tidak valid. Masukkan 'A' untuk Admin atau 'M' untuk Member.");
+                if (role.equals("A")) {
+                    user = new Admin(name);
+                } else if (role.equals("M")) {
+                    user = new Member(name);
                 } else {
-                    user = role.equals("A") ? new Admin(name) : new Member(name);
+                    System.out.println("Input tidak valid.");
                 }
             }
         }
@@ -57,13 +67,13 @@ public class Perpustakaan {
             System.out.println("2. Return Book");
         }
         System.out.println("3. Show Available Books");
-        System.out.println("0. Exit");
+        System.out.println("0. Logout");
     }
 
     private boolean handleMenuChoice(User user) {
         System.out.print("Choose: ");
         int choice = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); // consume newline
 
         switch (choice) {
             case 1:
@@ -76,7 +86,7 @@ public class Perpustakaan {
                 bookManager.displayAvailableBooks();
                 break;
             case 0:
-                return true;
+                return true; // logout
             default:
                 System.out.println("Pilihan tidak valid.");
         }
@@ -105,11 +115,12 @@ public class Perpustakaan {
         } else {
             System.out.print("Enter title to return: ");
             String returnTitle = scanner.nextLine();
-//            bookManager.returnBook(returnTitle);
+            bookManager.returnBook(returnTitle);
         }
     }
 
     public static void main(String[] args) {
-        new Perpustakaan().start();
+        BookManager sharedBookManager = new BookManager();
+        new Perpustakaan(sharedBookManager).start();
     }
 }
