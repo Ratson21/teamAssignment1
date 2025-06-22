@@ -1,5 +1,4 @@
 @startuml
-
 abstract class User {
     # name: String
     + User(name: String)
@@ -20,7 +19,50 @@ class Member {
     + returnBook(title: String): void
 }
 
+class Book {
+    - title: String
+    - author: String
+    - isBorrowed: boolean
+    + Book(title: String, author: String)
+    + getTitle(): String
+    + getAuthor(): String
+    + isBorrowed(): boolean
+    + borrow(): void
+    + returnBook(): void
+    + printDetails(): void
+}
+
+class BookManager {
+    - books: Book[]
+    - bookCount: int
+    + BookManager()
+    + addBook(book: Book): void
+    + displayAvailableBooks(): void
+    + removeBook(title: String): void
+    + borrowBook(title: String): void
+    + returnBook(title: String): void
+}
+
+class Perpustakaan {
+    - bookManager: BookManager
+    - scanner: Scanner
+    - userRoles: Map<String, String>
+    + Perpustakaan(bookManager: BookManager)
+    + start(): void
+    - login(): User
+    - displayMenu(user: User): void
+    - handleMenuChoice(user: User): boolean
+    - handleOption1(user: User): void
+    - handleOption2(user: User): void
+    + {static} main(args: String[]): void
+}
+
+' Hubungan Inheritansi (Pewarisan)
 User <|-- Admin : extends
 User <|-- Member : extends
 
+' Hubungan Komposisi/Agregasi/Asosiasi
+Perpustakaan "1" *-- "1" BookManager : manages >
+BookManager "1" o-- "0..*" Book : contains >
+Perpustakaan "1" o-- "0..*" User : interacts with >
 @enduml
