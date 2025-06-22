@@ -1,25 +1,25 @@
 public class Book {
     private String title;
     private String author;
-    private Boolean available;
+    private boolean borrowed;
 
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
-        this.available = true;
+        this.borrowed = false;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public boolean isBorrowed() {
+        return borrowed;
     }
 
     public void borrow() {
-        if (available) {
-            available = false;
+        if (!borrowed) {
+            borrowed = true;
             System.out.println("Book \"" + title + "\" has been borrowed.");
         } else {
             System.out.println("Book \"" + title + "\" is not available.");
@@ -27,12 +27,12 @@ public class Book {
     }
 
     public void returnBook() {
-        available = true;
         System.out.println("Book \"" + title + "\" has been returned.");
     }
 
     public void printDetails() {
-        System.out.println("Title: " + title + ", Author: " + author + ", Available: " + available);
+        String status = borrowed ? "Booked" : "Available";
+    System.out.println("Title: " + title + ", Author: " + author + ", Status: " + status);
     }
 
 }
