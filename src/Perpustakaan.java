@@ -72,23 +72,28 @@ public class Perpustakaan {
 
     private boolean handleMenuChoice(User user) {
         System.out.print("Choose: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // consume newline
-
-        switch (choice) {
-            case 1:
-                handleOption1(user);
-                break;
-            case 2:
-                handleOption2(user);
-                break;
-            case 3:
-                bookManager.displayAvailableBooks();
-                break;
-            case 0:
-                return true; // logout
-            default:
-                System.out.println("Pilihan tidak valid.");
+        try {
+            String input = scanner.nextLine().trim();
+            // Coba konversi input ke integer
+            int choice = Integer.parseInt(input);
+        
+            switch (choice) {
+                case 1:
+                    handleOption1(user);
+                    break;
+                case 2:
+                    handleOption2(user);
+                    break;
+                case 3:
+                    bookManager.displayAvailableBooks();
+                    break;
+                case 0:
+                    return true; // logout
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan pilih angka 0-3.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Input tidak valid. Harap masukkan angka.");
         }
         return false;
     }
