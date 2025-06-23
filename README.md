@@ -58,4 +58,4 @@ java -cp build Perpustakaan
 ```
 
 ## Pengembang
-Group 6
+Group 2
